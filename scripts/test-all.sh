@@ -4,7 +4,7 @@
 
 set -e
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 WORKSPACE_DIR="$(dirname "$SCRIPT_DIR")"
 
 # Create temp directory, cleanup on exit
@@ -32,29 +32,24 @@ check() {
 # Test 1: link-skills.sh
 echo "Testing link-skills.sh..."
 "$SCRIPT_DIR/link-skills.sh" "$TEST_DIR" > /dev/null 2>&1
-check ".claude directory created" [ -d "$TEST_DIR/.claude" ]
-check "skills symlink created" [ -L "$TEST_DIR/.claude/skills" ]
-LINK_TARGET=$(readlink "$TEST_DIR/.claude/skills" 2>/dev/null || echo "")
-check "symlink points to workspace" [ "$LINK_TARGET" = "$WORKSPACE_DIR/.claude/skills" ]
+check ".opencode directory created" [ -d "$TEST_DIR/.opencode" ]
+check "skill symlink created" [ -L "$TEST_DIR/.opencode/skill" ]
+LINK_TARGET=$(readlink "$TEST_DIR/.opencode/skill" 2>/dev/null || echo "")
+check "symlink points to workspace" [ "$LINK_TARGET" = "$WORKSPACE_DIR/.opencode/skill" ]
 echo ""
 
-# Test 2: generate-claude-md.sh
-echo "Testing generate-claude-md.sh..."
-"$SCRIPT_DIR/generate-claude-md.sh" "$TEST_DIR" > /dev/null 2>&1
-check "CLAUDE.md created" [ -f "$TEST_DIR/CLAUDE.md" ]
-check "CLAUDE.md has content" [ -s "$TEST_DIR/CLAUDE.md" ]
+# Test 2: generate-agents-md.sh
+echo "Testing generate-agents-md.sh..."
+"$SCRIPT_DIR/generate-agents-md.sh" "$TEST_DIR" > /dev/null 2>&1
+check "AGENTS.md created" [ -f "$TEST_DIR/AGENTS.md" ]
+check "AGENTS.md has content" [ -s "$TEST_DIR/AGENTS.md" ]
 echo ""
 
-# Test 3: configure-mcp.sh (non-interactive check only)
-echo "Testing configure-mcp.sh..."
-check "MCP template exists" [ -f "$WORKSPACE_DIR/templates/mcp-config.json.template" ]
-echo ""
-
-# Test 4: configure-settings.sh
-echo "Testing configure-settings.sh..."
-"$SCRIPT_DIR/configure-settings.sh" "$TEST_DIR" > /dev/null 2>&1
-check "settings.json created" [ -f "$TEST_DIR/.claude/settings.json" ]
-check "settings.json has content" [ -s "$TEST_DIR/.claude/settings.json" ]
+# Test 3: configure-opencode.sh
+echo "Testing configure-opencode.sh..."
+printf "\\n" | "$SCRIPT_DIR/configure-opencode.sh" "$TEST_DIR" > /dev/null 2>&1
+check "opencode.json created" [ -f "$TEST_DIR/opencode.json" ]
+check "opencode.json has content" [ -s "$TEST_DIR/opencode.json" ]
 echo ""
 
 # Summary

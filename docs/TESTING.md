@@ -16,9 +16,9 @@ For MVP phase, we use a simple bash test script that validates all setup scripts
 
 | Script | Validations |
 |--------|-------------|
-| `link-skills.sh` | Creates `.claude/`, symlink points to workspace |
-| `generate-claude-md.sh` | Creates `CLAUDE.md` with content |
-| `configure-mcp.sh` | Template file exists |
+| `link-skills.sh` | Creates `.opencode/`, symlink points to workspace |
+| `generate-agents-md.sh` | Creates `AGENTS.md` with content |
+| `configure-opencode.sh` | Creates `opencode.json` with content |
 
 ### Test Philosophy
 
@@ -43,7 +43,7 @@ For MVP phase, we use a simple bash test script that validates all setup scripts
 @test "link-skills creates symlink" {
     run ./scripts/link-skills.sh "$TEST_DIR"
     [ "$status" -eq 0 ]
-    [ -L "$TEST_DIR/.claude/skills" ]
+    [ -L "$TEST_DIR/.opencode/skill" ]
 }
 ```
 
@@ -108,6 +108,6 @@ echo ""
 For changes that are hard to automate:
 
 - [ ] Run `setup-project.sh` on a real Java project
-- [ ] Verify skills symlink works in Claude Code
-- [ ] Test on fresh directory (no existing `.claude/`)
-- [ ] Test on directory with existing `.claude/skills`
+- [ ] Verify skills symlink works in OpenCode
+- [ ] Test on fresh directory (no existing `.opencode/`)
+- [ ] Test on directory with existing `.opencode/skill`

@@ -1,10 +1,10 @@
 #!/bin/bash
-# link-skills.sh - Setup claude-code-java skills in a Java project
+# link-skills.sh - Setup opencode-java skills in a Java project
 # Usage: ./link-skills.sh [project-directory]
 
 set -e
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 WORKSPACE_DIR="$(dirname "$SCRIPT_DIR")"
 
 PROJECT_DIR="$(cd "${1:-.}" && pwd)"
@@ -21,19 +21,19 @@ success() { echo -e "${GREEN}✅ $1${NC}"; }
 info() { echo -e "${BLUE}ℹ️  $1${NC}"; }
 
 # Check dirs
-[ ! -d "$WORKSPACE_DIR/.claude/skills" ] && error "Skills not found at $WORKSPACE_DIR/.claude/skills"
+[ ! -d "$WORKSPACE_DIR/.opencode/skill" ] && error "Skills not found at $WORKSPACE_DIR/.opencode/skill"
 [ ! -d "$PROJECT_DIR" ] && error "Project dir not found: $PROJECT_DIR"
 
-# Create .claude if missing
-[ ! -d "$PROJECT_DIR/.claude" ] && mkdir -p "$PROJECT_DIR/.claude" && success "Created .claude directory"
+# Create .opencode if missing
+[ ! -d "$PROJECT_DIR/.opencode" ] && mkdir -p "$PROJECT_DIR/.opencode" && success "Created .opencode directory"
 
 # Symlink skills
-if [ -L "$PROJECT_DIR/.claude/skills" ]; then
+if [ -L "$PROJECT_DIR/.opencode/skill" ]; then
     info "Skills already linked"
-elif [ -d "$PROJECT_DIR/.claude/skills" ]; then
-    echo -e "${YELLOW}⚠️  .claude/skills exists but is not a symlink. Backup/remove manually.${NC}"
+elif [ -d "$PROJECT_DIR/.opencode/skill" ]; then
+    echo -e "${YELLOW}⚠️  .opencode/skill exists but is not a symlink. Backup/remove manually.${NC}"
 else
-    ln -sf "$WORKSPACE_DIR/.claude/skills" "$PROJECT_DIR/.claude/skills"
+    ln -sf "$WORKSPACE_DIR/.opencode/skill" "$PROJECT_DIR/.opencode/skill"
     success "Linked skills to project"
 fi
 

@@ -7,10 +7,9 @@
 | Script | Purpose |
 |--------|---------|
 | `setup-project.sh` | Orchestrates full project setup (runs all scripts below) |
-| `link-skills.sh` | Creates `.claude/` directory and symlinks skills |
-| `generate-claude-md.sh` | Generates `CLAUDE.md` from template |
-| `configure-mcp.sh` | Generates MCP config and optionally adds servers |
-| `configure-settings.sh` | Copies Claude Code settings with pre-approved commands |
+| `link-skills.sh` | Creates `.opencode/` directory and symlinks skills |
+| `generate-agents-md.sh` | Generates `AGENTS.md` from template |
+| `configure-opencode.sh` | Generates `opencode.json` (permissions + MCP) |
 | `test-all.sh` | Runs all tests to validate scripts work |
 
 ## Usage
@@ -28,14 +27,11 @@ cd /path/to/claude-code-java
 # Just link skills
 ./scripts/link-skills.sh /path/to/your-java-project
 
-# Just generate CLAUDE.md
-./scripts/generate-claude-md.sh /path/to/your-java-project
+# Just generate AGENTS.md
+./scripts/generate-agents-md.sh /path/to/your-java-project
 
-# Just configure MCP
-./scripts/configure-mcp.sh /path/to/your-java-project
-
-# Just configure settings
-./scripts/configure-settings.sh /path/to/your-java-project
+# Just configure OpenCode
+./scripts/configure-opencode.sh /path/to/your-java-project
 ```
 
 ### Run Tests
@@ -78,11 +74,11 @@ Scripts should NOT use `cd` to change directories. Instead, use absolute paths:
 
 ```bash
 # Good
-[ -d "$PROJECT_DIR/.claude" ] && mkdir -p "$PROJECT_DIR/.claude"
+[ -d "$PROJECT_DIR/.opencode" ] && mkdir -p "$PROJECT_DIR/.opencode"
 
 # Bad
 cd "$PROJECT_DIR"
-[ -d .claude ] && mkdir -p .claude
+[ -d .opencode ] && mkdir -p .opencode
 ```
 
 **Why:** After `cd`, relative paths to templates/workspace resources break.
@@ -93,10 +89,8 @@ Templates live in `templates/` and use `{{PLACEHOLDER}}` syntax:
 
 ```
 templates/
-├── CLAUDE.md.template        # {{PROJECT_NAME}}, {{REPO_NAME}}, {{DATE}}
-├── mcp-config.json.template  # {{PROJECT_ROOT}}, {{GITHUB_REPO}}
-├── MCP_CONFIG.md.template    # {{PROJECT_ROOT}}, {{GITHUB_REPO}}
-└── settings.json.template    # Pre-approved Maven/Git commands
+├── AGENTS.md.template        # {{PROJECT_NAME}}, {{REPO_NAME}}, {{DATE}}
+└── opencode.json.template    # {{PROJECT_ROOT}}
 ```
 
 Scripts use `sed` to replace placeholders:
@@ -172,13 +166,10 @@ echo ""
 ```
 setup-project.sh
     ├── link-skills.sh      (no dependencies)
-    ├── generate-claude-md.sh
-    │       └── templates/CLAUDE.md.template
-    ├── configure-mcp.sh
-    │       ├── templates/mcp-config.json.template
-    │       └── templates/MCP_CONFIG.md.template
-    └── configure-settings.sh
-            └── templates/settings.json.template
+    ├── generate-agents-md.sh
+    │       └── templates/AGENTS.md.template
+    └── configure-opencode.sh
+            └── templates/opencode.json.template
 ```
 
 ## Troubleshooting

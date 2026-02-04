@@ -1,16 +1,16 @@
-# claude-code-java
+# open-code-ai-java
 
-> Reusable AI development infrastructure for Java projects, optimized for Claude Code
+> Reusable AI development infrastructure for Java projects, optimized for OpenCode
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-*This project is not affiliated with Anthropic.*
+*This project is not affiliated with OpenCode.*
 
 ## What is this?
 
-A collection of reusable components for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) - Anthropic's agentic coding tool. The core of this project is a set of **skills** (structured markdown files that provide Claude with domain knowledge and workflows), but it also includes project templates, MCP server configurations, and setup scripts.
+A collection of reusable components for [OpenCode](https://opencode.ai/docs). The core of this project is a set of **skills** (structured markdown files that provide OpenCode with domain knowledge and workflows), but it also includes project templates, MCP server configurations, and setup scripts.
 
-**Who is this for?** Java developers using Claude Code who want consistent, high-quality AI assistance for common tasks like code reviews, testing, commits, and architecture decisions.
+**Who is this for?** Java developers using OpenCode who want consistent, high-quality AI assistance for common tasks like code reviews, testing, commits, and architecture decisions.
 
 ## Purpose
 
@@ -34,68 +34,68 @@ chmod +x scripts/*.sh
 ./scripts/setup-project.sh ~/projects/your-java-project
 ```
 
-This creates `.claude/` with symlinked skills, generates `CLAUDE.md`, and configures settings.
+This creates `.opencode/` with symlinked skills, generates `AGENTS.md`, and configures `opencode.json`.
 
 **Prefer manual setup?** Just copy or symlink the skills you want:
 ```bash
-mkdir -p your-project/.claude/skills
+mkdir -p your-project/.opencode/skill
 
 # Copy specific skills
-cp -r ~/projects/claude-code-java/.claude/skills/java-code-review your-project/.claude/skills/
+cp -r ~/projects/claude-code-java/.opencode/skill/java-code-review your-project/.opencode/skill/
 
 # Or symlink all skills
-ln -s ~/projects/claude-code-java/.claude/skills/* your-project/.claude/skills/
+ln -s ~/projects/claude-code-java/.opencode/skill/* your-project/.opencode/skill/
 ```
 
-### 3. Use with Claude Code
+### 3. Use with OpenCode
 ```bash
 cd ~/projects/your-java-project
-claude
+opencode
 
 # Skills load automatically based on context, or invoke directly:
-> /git-commit
-> /java-code-review
+> "Use the git-commit skill"
+> "Use the java-code-review skill"
 ```
 
 ## Available Skills (18)
 
-Skills are automatically loaded by Claude Code based on context.
+Skills are automatically loaded by OpenCode based on context.
 
 ### Workflow
 | Skill | Trigger Examples |
 |-------|------------------|
-| [**git-commit**](.claude/skills/git-commit/) | "commit these changes", "create commit" |
-| [**changelog-generator**](.claude/skills/changelog-generator/) | "generate changelog", "what changed since release" |
-| [**issue-triage**](.claude/skills/issue-triage/) | "triage issues", "check open issues" |
+| [**git-commit**](.opencode/skill/git-commit/) | "commit these changes", "create commit" |
+| [**changelog-generator**](.opencode/skill/changelog-generator/) | "generate changelog", "what changed since release" |
+| [**issue-triage**](.opencode/skill/issue-triage/) | "triage issues", "check open issues" |
 
 ### Code Quality
 | Skill | Trigger Examples |
 |-------|------------------|
-| [**java-code-review**](.claude/skills/java-code-review/) | "review this code", "check this PR" |
-| [**api-contract-review**](.claude/skills/api-contract-review/) | "review API", "check REST endpoints" |
-| [**concurrency-review**](.claude/skills/concurrency-review/) | "check thread safety", "review async code" |
-| [**performance-smell-detection**](.claude/skills/performance-smell-detection/) | "check performance", "find slow code" |
-| [**test-quality**](.claude/skills/test-quality/) | "add tests", "improve coverage" |
-| [**maven-dependency-audit**](.claude/skills/maven-dependency-audit/) | "check dependencies", "audit deps" |
-| [**security-audit**](.claude/skills/security-audit/) | "security review", "check OWASP", "vulnerabilities" |
+| [**java-code-review**](.opencode/skill/java-code-review/) | "review this code", "check this PR" |
+| [**api-contract-review**](.opencode/skill/api-contract-review/) | "review API", "check REST endpoints" |
+| [**concurrency-review**](.opencode/skill/concurrency-review/) | "check thread safety", "review async code" |
+| [**performance-smell-detection**](.opencode/skill/performance-smell-detection/) | "check performance", "find slow code" |
+| [**test-quality**](.opencode/skill/test-quality/) | "add tests", "improve coverage" |
+| [**maven-dependency-audit**](.opencode/skill/maven-dependency-audit/) | "check dependencies", "audit deps" |
+| [**security-audit**](.opencode/skill/security-audit/) | "security review", "check OWASP", "vulnerabilities" |
 
 ### Architecture & Design
 | Skill | Trigger Examples |
 |-------|------------------|
-| [**architecture-review**](.claude/skills/architecture-review/) | "review architecture", "check package structure" |
-| [**solid-principles**](.claude/skills/solid-principles/) | "check SOLID", "single responsibility" |
-| [**design-patterns**](.claude/skills/design-patterns/) | "use factory pattern", "implement strategy" |
-| [**clean-code**](.claude/skills/clean-code/) | "clean this code", "refactor" |
+| [**architecture-review**](.opencode/skill/architecture-review/) | "review architecture", "check package structure" |
+| [**solid-principles**](.opencode/skill/solid-principles/) | "check SOLID", "single responsibility" |
+| [**design-patterns**](.opencode/skill/design-patterns/) | "use factory pattern", "implement strategy" |
+| [**clean-code**](.opencode/skill/clean-code/) | "clean this code", "refactor" |
 
 ### Framework & Data
 | Skill | Trigger Examples |
 |-------|------------------|
-| [**spring-boot-patterns**](.claude/skills/spring-boot-patterns/) | "create controller", "Spring Boot help" |
-| [**java-migration**](.claude/skills/java-migration/) | "upgrade to Java 21", "migrate from Java 8" |
-| [**jpa-patterns**](.claude/skills/jpa-patterns/) | "N+1 problem", "LazyInitializationException" |
-| [**logging-patterns**](.claude/skills/logging-patterns/) | "add logging", "debug this flow", "analyze logs" |
+| [**spring-boot-patterns**](.opencode/skill/spring-boot-patterns/) | "create controller", "Spring Boot help" |
+| [**java-migration**](.opencode/skill/java-migration/) | "upgrade to Java 21", "migrate from Java 8" |
+| [**jpa-patterns**](.opencode/skill/jpa-patterns/) | "N+1 problem", "LazyInitializationException" |
+| [**logging-patterns**](.opencode/skill/logging-patterns/) | "add logging", "debug this flow", "analyze logs" |
 
-See [.claude/skills/README.md](.claude/skills/README.md) for full documentation and [docs/SCRIPTS.md](docs/SCRIPTS.md) for setup script options.
+See [.opencode/skill/README.md](.opencode/skill/README.md) for full documentation and [docs/SCRIPTS.md](docs/SCRIPTS.md) for setup script options.
 
 ## Project Structure
 
@@ -104,8 +104,8 @@ claude-code-java/
 ├── README.md                    # This file
 ├── LICENSE                      # MIT license
 ├── .gitignore                   # Git ignore rules
-├── .claude/
-│   └── skills/                  # 18 reusable skills (see Available Skills above)
+├── .opencode/
+│   └── skill/                   # 18 reusable skills (see Available Skills above)
 ├── docs/                        # Guidelines and best practices
 │   ├── DESIGN_PRINCIPLES.md     # Core philosophy
 │   ├── RED_FLAGS.md             # Warning signs to watch for
@@ -114,22 +114,20 @@ claude-code-java/
 │   ├── SKILL_GUIDELINES.md      # How to create new skills
 │   └── TESTING.md               # Testing strategy
 ├── templates/
-│   ├── CLAUDE.md.template       # Template for projects
-│   ├── mcp-config.json.template # MCP configuration template
-│   ├── MCP_CONFIG.md.template   # MCP documentation template
-│   └── settings.json.template   # Claude Code settings (pre-approved commands)
+│   ├── AGENTS.md.template       # Template for projects
+│   └── opencode.json.template   # OpenCode config template (permissions + MCP)
 └── scripts/
     ├── setup-project.sh         # Full project setup (orchestrator)
     ├── link-skills.sh           # Symlink skills to project
-    ├── generate-claude-md.sh    # Generate CLAUDE.md
-    ├── configure-mcp.sh         # Configure MCP servers
+    ├── generate-agents-md.sh    # Generate AGENTS.md
+    ├── configure-opencode.sh    # Configure opencode.json
     └── test-all.sh              # Run all tests
 ```
 
 ## Typical Workflow
 
 1. **Link skills** to your Java project
-2. **Start Claude Code** in project directory
+2. **Start OpenCode** in project directory
 3. **Load skill** relevant to current task
 4. **Execute workflow** with natural language
 5. **Measure results** (tokens used, time saved)
@@ -145,11 +143,11 @@ Track these to validate effectiveness:
 
 ## Requirements
 
-- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI installed
+- [OpenCode](https://opencode.ai/docs) installed
 - Java 11+ projects (Java 17+ recommended)
 - Git for version control
 - Maven or Gradle build tool
-- (Optional) [GitHub MCP server](https://github.com/github/github-mcp-server) for issue management
+- (Optional) [OpenCode GitHub integration](https://opencode.ai/docs/github)
 
 ## What's Included
 
@@ -177,4 +175,3 @@ See [docs/](docs/) for detailed guides:
 ## License
 
 MIT License - Use freely, modify as needed.
-

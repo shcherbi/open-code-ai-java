@@ -104,8 +104,8 @@ A skill should be completable in one session. Signs it's too broad:
 Every skill has two files:
 
 ```
-.claude/skills/<skill-name>/
-├── SKILL.md    # Instructions for Claude (AI reads this)
+.opencode/skill/<skill-name>/
+├── SKILL.md    # Instructions for OpenCode (AI reads this)
 └── README.md   # Documentation for humans
 ```
 
@@ -134,6 +134,11 @@ Brief intro (1-2 sentences).
 ## Token Optimization
 [How to use efficiently on large codebases]
 ```
+
+OpenCode requirements:
+- `SKILL.md` must start with YAML frontmatter.
+- `name` and `description` are required.
+- `name` must match the folder name and use lowercase alphanumerics with single hyphen separators (no leading/trailing hyphen).
 
 ### README.md Structure
 
@@ -192,7 +197,7 @@ Brief intro (1-2 sentences).
 
 ### Token Efficiency
 
-Skills should help Claude work efficiently:
+Skills should help OpenCode work efficiently:
 
 1. **Prioritize checks** - Most important first
 2. **Provide commands** - Shell commands to gather info quickly
@@ -246,7 +251,7 @@ Before committing:
 
 ### Automated Review
 
-PRs that modify `.claude/skills/` are automatically reviewed against these guidelines.
+PRs that modify `.opencode/skill/` are automatically reviewed against these guidelines.
 The review checks:
 - **Structure**: frontmatter, required files, folder convention
 - **Overlap**: comparison with existing skills
@@ -340,7 +345,7 @@ Skills improve through real usage. A skill is never "done" after the first versi
 
 | Signal | Problem | Solution |
 |--------|---------|----------|
-| Claude asks clarifying questions | Missing context or defaults | Add explicit defaults and examples |
+| OpenCode asks clarifying questions | Missing context or defaults | Add explicit defaults and examples |
 | You frequently correct the output | Missing constraints | Add "DO NOT" rules or format specs |
 | Output varies too much | Too vague | Add concrete examples of expected output |
 | Works on one project, fails on another | Too narrow | Generalize patterns, add edge cases |
@@ -349,7 +354,7 @@ Skills improve through real usage. A skill is never "done" after the first versi
 ### Improvement Workflow
 
 1. **Use the skill** on real work
-2. **Note every correction** you make to Claude's output
+2. **Note every correction** you make to OpenCode's output
 3. **Update SKILL.md** with the correction as a rule
 4. **Clear context** and test again
 5. **Repeat 5-6 times** until stable
@@ -367,7 +372,7 @@ A skill is mature when:
 Consider adding to your skill folder:
 
 ```
-.claude/skills/<skill-name>/
+.opencode/skill/<skill-name>/
 ├── SKILL.md
 ├── README.md
 └── CHANGELOG.md   # Optional: track refinements
