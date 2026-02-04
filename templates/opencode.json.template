@@ -1,0 +1,39 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "*": "ask",
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.env.example": "allow"
+    },
+    "bash": {
+      "*": "ask",
+      "git status*": "allow",
+      "git log*": "allow",
+      "git diff*": "allow",
+      "git branch*": "allow",
+      "mvn *": "allow",
+      "./mvnw *": "allow",
+      "gradle *": "allow",
+      "./gradlew *": "allow"
+    },
+    "edit": "ask",
+    "skill": {
+      "*": "allow"
+    }
+  },
+  "mcp": {
+    "filesystem": {
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-filesystem", "--path", "{{PROJECT_ROOT}}"],
+      "enabled": true
+    },
+    "git": {
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-git", "--path", "{{PROJECT_ROOT}}"],
+      "enabled": true
+    }
+  }
+}

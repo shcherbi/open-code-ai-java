@@ -1,0 +1,25 @@
+# OpenCode Project Rules for {{PROJECT_NAME}}
+
+Generated: {{DATE}}
+Repository: {{REPO_NAME}}
+
+## Purpose
+Provide high-quality, consistent AI assistance for this Java project using OpenCode.
+
+## Skills
+Skills live in `.opencode/skill/<skill-name>/SKILL.md`.
+When a task matches a skill, use that skill (OpenCode will load it via the `skill` tool).
+
+Suggested entry points:
+- `.opencode/skill/git-commit/SKILL.md`
+- `.opencode/skill/java-code-review/SKILL.md`
+- `.opencode/skill/test-quality/SKILL.md`
+
+## Execution
+- Prefer MCP tools when configured in `opencode.json`.
+- Keep changes minimal and well-scoped.
+- Ask for clarification when requirements are ambiguous.
+
+## Project Conventions
+- Build: Maven or Gradle
+- Java target: 11+ (17+ preferred)
